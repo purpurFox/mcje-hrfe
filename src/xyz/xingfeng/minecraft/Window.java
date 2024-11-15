@@ -25,7 +25,7 @@ public class Window extends JFrame {
     /**
      * 提示文本
      */
-    JLabel jl1 = new JLabel("请输入.minecraft路径:");
+    JLabel jl1 = new JLabel("请输入assets路径:");
     JLabel jl2 = new JLabel("请选择要导出的版本");
     JLabel jl3 = new JLabel("请输入导出路径:");
     public static JLabel jl4 = new JLabel("正在等待导出");
@@ -50,7 +50,7 @@ public class Window extends JFrame {
         // 获取屏幕宽高
         Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
         // 设置窗口名称
-        this.setTitle("DT_刑风_MINECRAFT原版音效提取器");
+        this.setTitle("非官方《Minecraft：Java版》散列资源文件提取器（仅声音）");
         // 设置窗口位置大小
         setBounds(scrSize.width / 2 - fcWidth / 2, scrSize.height / 2 - fcHeight / 2, fcWidth, fcHeight);
         // 是否显示窗口体
@@ -109,13 +109,13 @@ public class Window extends JFrame {
             text.setEnabled(false);
             File file = new File(text.getText());
             if (file.exists()){
-                new IsMinecraft(text.getText());
+                new IsAssets(text.getText());
                 for(int i = 0;i < json.size(); i++){
                     jComboBox.addItem(json.get(i));
                 }
                 text1.setEnabled(true);
             }else {
-                JOptionPane.showOptionDialog(null,"请输入正确的地址",
+                JOptionPane.showOptionDialog(null,"请输入正确的路径",
                         "错误",JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE,
                         null,new String[]{"确定"},"确定");
                 but1.setEnabled(true);
@@ -129,7 +129,7 @@ public class Window extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             but2.setEnabled(false);
-            Thread thread = new Thread(new Sounds(jComboBox.getSelectedItem().toString()));
+            Thread thread = new Thread(new ExtractSounds(jComboBox.getSelectedItem().toString()));
             Window.jl4.setText("正在读取文件");
             thread.start();
         }
